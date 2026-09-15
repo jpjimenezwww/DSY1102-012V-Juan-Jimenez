@@ -13,4 +13,8 @@ public class Salvaje extends Animal {
     }
 
     public String getProcedencia() { return procedencia; }
+    @Override
+    public String atender() {
+        return super.atender() + " Atención con protocolo de seguridad; procedencia: " + procedencia + ".";
+    }
 }

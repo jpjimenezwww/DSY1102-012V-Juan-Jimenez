@@ -44,4 +44,8 @@ public class Animal {
     public String emitirSonido() {
         return "Sonido de animal";
     }
+        // Atención base: todo animal se revisa y se registra
+    public String atender() {
+        return "Se revisa a " + nombre + " (" + especie + "); estado: " + estadoSalud + ".";
+    }
 }

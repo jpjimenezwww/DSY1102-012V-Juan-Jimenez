@@ -7,12 +7,8 @@ public class Gato extends Mascota {
     }
 
     // Diferencia propia del gato
-    public String emitirSonido() {
-        return "Miau!";
-
     @Override
     public String emitirSonido() {
-        return "Guau!";   // en Perro; "Miau!" en Gato, "Grrr!" en Tigre, "Rugido!" en Leon
-    }
+        return "Miau!";
     }
 }

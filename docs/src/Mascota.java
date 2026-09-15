@@ -13,4 +13,9 @@ public class Mascota extends Animal {
     }
 
     public String getDueno() { return dueno; }
+
+    @Override
+    public String atender() {
+        return super.atender() + " Atención estándar de mascota; se avisa al dueño (" + dueno + ").";
+    }
 }
