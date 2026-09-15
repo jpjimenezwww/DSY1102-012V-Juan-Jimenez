@@ -7,6 +7,7 @@ public class Perro extends Mascota {
     }
 
     // Diferencia propia del perro
+    @Override
     public String emitirSonido() {
         return "Guau!";
     }

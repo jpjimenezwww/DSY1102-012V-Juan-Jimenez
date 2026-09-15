@@ -7,6 +7,7 @@ public class Tigre extends Salvaje {
     }
 
     // Diferencia propia del tigre
+    @Override
     public String emitirSonido() {
         return "Grrr!";
     }

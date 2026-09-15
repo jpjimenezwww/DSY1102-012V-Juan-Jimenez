@@ -39,4 +39,9 @@ public class Animal {
     public double getPeso()        { return peso; }
     public String getEstadoSalud() { return estadoSalud; }
     public String getTipo()        { return tipo; }
+
+        // Operación común a todo animal; cada especie la especializa
+    public String emitirSonido() {
+        return "Sonido de animal";
+    }
 }

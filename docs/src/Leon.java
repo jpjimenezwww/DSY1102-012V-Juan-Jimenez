@@ -7,6 +7,7 @@ public class Leon extends Salvaje {
     }
 
     // Diferencia propia del león
+    @Override
     public String emitirSonido() {
         return "Rugido!";
     }
