@@ -1,5 +1,16 @@
+
+//Parte 2
+
+ //• Convierte Vehiculo en una clase abstract.
+ // • Declara public abstract double calcularCostoServicio(); en la clase base.
+ // • Crea Auto y Furgon heredando de Vehiculo.
+ //  Sobrescribe calcularCostoServicio() con @Override
+ //  No uses instanceof,
+
+ // Comentario parte 1
+
 /*
- * IL 1.1 - Solcución orientada a objetos vs solución estructurada
+ * IL 1.1 - Solución orientada a objetos vs solución estructurada
  * OPINIÓN:
  *
  * En un programa estructurado los datos y las funciones van por separado,
@@ -19,11 +30,16 @@
  */
 
 
-public class Vehiculo {
+public abstract class Vehiculo {
 
     //rango valido del año de fabricación.
     private static final int ANIO_MINIMO = 1990;
     private static final int ANIO_MAXIMO = 2026;
+
+
+    // Rango válido del porcentaje de descuento que acepta la sobrecarga.
+    private static final int DESCUENTO_MINIMO = 0;
+    private static final int DESCUENTO_MAXIMO = 100;
 
 
     // PEDIDOS EXPLICITOS PARTE 1:
@@ -110,6 +126,23 @@ public class Vehiculo {
         }
         this.kilometraje = kilometraje;
     }
+
+
+
+    // Cada subtipo define su propia regla de costo (métoodo abstracto: sin cuerpo).
+    public abstract double calcularCostoServicio();
+
+      // Sobrecarga: mismo nombre, distinta lista de parámetros.
+      // Llama a calcularCostoServicio(), que se resuelve según el objeto real
+      // (Auto o Furgon); por eso esta única versión sirve para ambos subtipos.
+        public double calcularCostoServicio(double porcentajeDescuento) {
+           if (porcentajeDescuento < DESCUENTO_MINIMO
+                          || porcentajeDescuento > DESCUENTO_MAXIMO) {
+                   throw new IllegalArgumentException(
+                                   "El porcentaje de descuento debe estar entre " + DESCUENTO_MINIMO + " y " + DESCUENTO_MAXIMO + ". Valor recibido: " + porcentajeDescuento);
+                }
+           return calcularCostoServicio() * (1 - porcentajeDescuento / 100);
+       }
 
 
 

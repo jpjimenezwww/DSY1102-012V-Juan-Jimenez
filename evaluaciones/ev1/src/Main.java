@@ -1,47 +1,42 @@
-// Parte 1
-// Construcción de marca, anio, kilometraje
-// Un valor inválido provoca IllegalArgumentException.
+// Parte 2
 
-// • marca: no puede ser nula ni vacía.
-//• anioFabricacion: debe estar entre 1990 y 2026.
-//• kilometraje: debe ser mayor que cero.
+// Main de la parte 2: herencia, costo polimórfico y sobrecarga.
+
+// valida porcentaje de 0 a 100 y aplica el descuento correspondiente.
+
 
 
 public class Main {
 
     public static void main(String[] args) {
+        // Vehiculo ahora es abstracta: ya no se puede escribir new Vehiculo(...).
+        // Se crean los subtipos y se manejan con referencias del tipo base.
+        Vehiculo auto = new Auto("Lamborghini", 2018, 1500, "Urus", false);
+        Vehiculo furgon = new Furgon("Toyota", 2020, 45000, 2.0);
 
-        // el objeto se construye y se muestra con toString().
-        // PARTE 1 SIN INPUTS, SOLO CREACIÓN DE CONSTRUCTORES
-        // AQUI AÚN PODEMOS EDITAR LA MARCA, ANIO Y KM PARA MOSTRAR
+        mostrarCostos(auto);
+        mostrarCostos(furgon);
 
-        Vehiculo vehiculo = new Vehiculo("Lamborghini", 2018, 1500);
-        System.out.println("Creado: " + vehiculo);
-
-
-        // SETTERS:
-        // Los setters modifican respetando las mismas reglas... los getters consultan.
-        vehiculo.setMarca("Lamborghini");
-        vehiculo.setAnioFabricacion(2018);
-        vehiculo.setKilometraje(1500);
-        System.out.println("Modificado: " + vehiculo.getMarca() + " | "
-                + vehiculo.getAnioFabricacion() + " | " + vehiculo.getKilometraje());
-
-
-        // Un valor inválido lanza IllegalArgumentException al crear...
+        // La sobrecarga valida el porcentaje (0 a 100).
         try {
-            new Vehiculo("", 2022, 18000);
+            auto.calcularCostoServicio(150);
         } catch (IllegalArgumentException e) {
-            System.out.println("Rechazado al crear: " + e.getMessage());
+            System.out.println("Rechazado: " + e.getMessage());
         }
 
-
-        // ...y también al modificar. El objeto conserva su valor anterior.
+        // Las validaciones de la Parte 1 siguen vigentes a través de super(...).
         try {
-            vehiculo.setAnioFabricacion(1980);
+            new Furgon("Toyota", 1980, 45000, 2.0);
         } catch (IllegalArgumentException e) {
-            System.out.println("Rechazado al modificar: " + e.getMessage());
+            System.out.println("Rechazado: " + e.getMessage());
         }
-        System.out.println("Sigue valido: " + vehiculo);
+    }
+
+    // Recibe el tipo base: cada objeto responde con su propia regla de costo.
+    private static void mostrarCostos(Vehiculo vehiculo) {
+        System.out.println(vehiculo
+                + " | Costo: " + vehiculo.calcularCostoServicio()
+                + " | Con 10% de descuento: " + vehiculo.calcularCostoServicio(10));
     }
 }
+
