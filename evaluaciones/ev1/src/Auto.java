@@ -1,13 +1,31 @@
 
 
-// Auto pertenece a Vehiculo: hereda sus datos y validaciones y aporta su regla de costo.
-public class Auto extends Vehiculo {
+// parte 3
+// • Auto debe implementar Garantizable; Furgon no debe implementarla.
+//• Agrega a Auto el atributo private boolean garantiaActiva con valor inicial false.
+
+
+
+
+ // Auto ES UN Vehiculo (herencia) y además (PUEDE!!) tener garantía del taller
+
+
+    // (interfaz Garantizable).
+    public class Auto extends Vehiculo implements Garantizable {
+
 
     private static final double COSTO_BASE = 25000;
     private static final double RECARGO_SIN_GARANTIA_FABRICA = 0.30;
 
     private String modelo;
     private boolean garantiaFabricaVigente;
+
+
+
+    // PARTE 3: GARANTIA DESACTIVADA...
+
+
+    private boolean garantiaActiva = false; // garantía del taller: parte desactivada
 
     public Auto(String marca, int anioFabricacion, double kilometraje,
                 String modelo, boolean garantiaFabricaVigente) {
@@ -34,6 +52,30 @@ public class Auto extends Vehiculo {
     public void setGarantiaFabricaVigente(boolean garantiaFabricaVigente) {
         this.garantiaFabricaVigente = garantiaFabricaVigente;
     }
+
+
+
+
+    public void setGarantiaActiva(boolean garantiaActiva) {
+          this.garantiaActiva = garantiaActiva;
+    }
+
+
+
+    //contrato Garantizable
+
+    @Override
+    public boolean tieneGarantiaActiva() {
+              return garantiaActiva;
+    }
+
+    @Override
+    public void activarGarantia() {
+       setGarantiaActiva(true); // reutiliza el setter
+    }
+
+
+
 
 
 

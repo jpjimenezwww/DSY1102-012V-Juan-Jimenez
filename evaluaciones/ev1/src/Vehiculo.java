@@ -1,4 +1,6 @@
 
+// Nota Parte 3: Sin cambios para vehiculo.
+
 //Parte 2
 
  //• Convierte Vehiculo en una clase abstract.
