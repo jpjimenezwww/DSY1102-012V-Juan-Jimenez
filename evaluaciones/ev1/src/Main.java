@@ -1,4 +1,11 @@
 
+// Parte 6:
+// Entrada de usuario, excepciones y menú
+// Creación LecturaEntrada
+// Agregar el menú a Main
+// Usaciclos para repetir la solicitud hasta obtener un valor válido.
+
+
 //Parte 5: Integración con los datos institucionales
 // Main coordina: crea los objetos, le pide las consultas al gestor y muestra
 // los resultados. Las fórmulas, validaciones y la búsqueda viven en sus clases.
@@ -15,9 +22,15 @@
 // pudiendo pedir el costo desde referencias del tipo base.
 
 import java.util.List;
-
+import java.util.NoSuchElementException;
 
 public class Main {
+
+    private static final int OPCION_LISTAR = 1;
+    private static final int OPCION_BUSCAR = 2;
+    private static final int OPCION_SIMULAR = 3;
+    private static final int OPCION_SALIR = 4;
+
 
     public static void main(String[] args) {
         GestorTaller gestor = new GestorTaller();
@@ -40,6 +53,87 @@ public class Main {
 
         System.out.println();
         gestor.listarVehiculos();
+
+
+
+
+
+        //Parte6: menú por consola
+        LecturaEntrada entrada = new LecturaEntrada();
+        try {
+            ejecutarMenu(gestor, entrada);
+        } catch (NoSuchElementException e) {
+            // Se cerró la entrada (Ctrl+D o Ctrl+Z): ya no queda nada que leer.
+            System.out.println("\nEntrada cerrada. Programa finalizado.");
+        }
+        entrada.cerrar();
+    }
+
+    // Repite el menú hasta que el usuario elige salir. Solo coordina: cada
+    // opción delega en el gestor, en los vehículos o en LecturaEntrada.
+    private static void ejecutarMenu(GestorTaller gestor, LecturaEntrada entrada) {
+        int opcion;
+        do {
+            System.out.println();
+            System.out.println("=== MENU AUTOFIX ===");
+            System.out.println("1. Listar todos los vehiculos");
+            System.out.println("2. Buscar por marca");
+            System.out.println("3. Simular costo del servicio con descuento");
+            System.out.println("4. Salir");
+            opcion = entrada.leerEnteroEnRango("Seleccione una opcion: ",
+                    OPCION_LISTAR, OPCION_SALIR);
+            System.out.println();
+
+            switch (opcion) {
+                case OPCION_LISTAR:
+                    gestor.listarVehiculos();
+                    break;
+                case OPCION_BUSCAR:
+                    mostrarBusqueda(gestor, entrada.leerTexto("Marca a buscar: "));
+                    break;
+                case OPCION_SIMULAR:
+                    simularCostoConDescuento(gestor, entrada);
+                    break;
+                case OPCION_SALIR:
+                    System.out.println("Programa finalizado.");
+                    break;
+            }
+        } while (opcion != OPCION_SALIR);
+    }
+
+    // Opción 3: el usuario elige un vehículo y un porcentaje, y se usa la
+    // sobrecarga calcularCostoServicio(double) de la Parte 2.
+    private static void simularCostoConDescuento(GestorTaller gestor,
+                                                 LecturaEntrada entrada) {
+        List<Vehiculo> vehiculos = gestor.obtenerVehiculos();
+        if (vehiculos.isEmpty()) {
+            System.out.println("No hay vehiculos registrados.");
+            return;
+        }
+
+        System.out.println("=== SIMULAR COSTO CON DESCUENTO ===");
+        for (int i = 0; i < vehiculos.size(); i++) {
+            Vehiculo vehiculo = vehiculos.get(i);
+            System.out.println((i + 1) + ". " + vehiculo.obtenerTipo()
+                    + " | " + vehiculo);
+        }
+
+        int numero = entrada.leerEnteroEnRango("Numero de vehiculo: ",
+                1, vehiculos.size());
+        Vehiculo elegido = vehiculos.get(numero - 1);
+
+        // La lectura filtra tipo y rango para poder volver a pedir el dato.
+        // Vehiculo valida el porcentaje de todos modos: no confía en quien lo llama.
+        double porcentaje = entrada.leerDecimalEnRango(
+                "Porcentaje de descuento (0 a 100): ", 0, 100);
+
+        double costoNormal = elegido.calcularCostoServicio();
+        double costoConDescuento = elegido.calcularCostoServicio(porcentaje);
+
+        System.out.println("Vehiculo: " + elegido.obtenerTipo() + " | " + elegido);
+        System.out.println("Costo normal: " + formatearPesos(costoNormal));
+        System.out.println("Descuento aplicado: " + porcentaje + "%");
+        System.out.println("Costo con descuento: " + formatearPesos(costoConDescuento));
     }
 
     // Pide la búsqueda al gestor y recorre el resultado con referencias del tipo base.
@@ -64,6 +158,3 @@ public class Main {
         return String.format("$%.0f", monto);
     }
 }
-
-
-
