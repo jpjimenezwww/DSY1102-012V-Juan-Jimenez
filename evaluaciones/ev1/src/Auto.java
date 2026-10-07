@@ -88,4 +88,9 @@
         }
         return costo;
     }
-}
+
+    @Override
+    public String obtenerTipo() {
+        return "Auto";
+        }
+    }

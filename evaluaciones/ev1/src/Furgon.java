@@ -38,4 +38,10 @@ public class Furgon extends Vehiculo {
         }
         return costo;
     }
+
+
+    @Override
+    public String obtenerTipo() {
+           return "Furgon";
+    }
 }

@@ -1,4 +1,10 @@
 
+
+
+// Parte 4: Se declara abstracto en Vehiculo.
+// se sobrescribe al final de cada subtipo.
+// Cada objeto informa su propio tipo: nadie tiene que averiguarlo desde afuera
+
 // Nota Parte 3: Sin cambios para vehiculo.
 
 //Parte 2
@@ -145,6 +151,13 @@ public abstract class Vehiculo {
                 }
            return calcularCostoServicio() * (1 - porcentajeDescuento / 100);
        }
+
+
+       // Parte 4:
+
+       // Nombre del tipo concreto. Lo responde cada subtipo, así nadie tiene que
+       // averiguar desde afuera qué clase de vehículo tiene en la mano.
+    public abstract String obtenerTipo();
 
 
 
