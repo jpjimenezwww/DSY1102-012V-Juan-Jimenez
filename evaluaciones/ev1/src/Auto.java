@@ -1,5 +1,10 @@
 
 
+// Parte 5:
+// No se sobrescribe toString(): el listado final usa el de Vehiculo.
+
+//Parte 4: Sin cambios.
+
 // parte 3
 // • Auto debe implementar Garantizable; Furgon no debe implementarla.
 //• Agrega a Auto el atributo private boolean garantiaActiva con valor inicial false.
@@ -93,4 +98,20 @@
     public String obtenerTipo() {
         return "Auto";
         }
+
+// Reutiliza el detalle común y le agrega lo propio del Auto.
+// No se sobrescribe toString(): el listado final usa el de Vehiculo.
+
+    @Override
+    public String obtenerDetalle() {
+        return super.obtenerDetalle()
+              + " | Modelo: " + modelo
+              + " | Garantia vigente: " + textoSiNo(garantiaFabricaVigente)
+              + "\n  Garantia activa: " + textoSiNo(tieneGarantiaActiva());
     }
+
+    private String textoSiNo(boolean valor) {
+        return valor ? "Si" : "No";
+
+    }
+}

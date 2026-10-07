@@ -1,4 +1,8 @@
 
+// parte 5:
+// Reutiliza el detalle común y le agrega lo propio del Furgon.
+// Furgon suma la capacidad, con detalles.
+
 
 //Furgon ES UN Vehiculo: hereda sus datos y validaciones y aporta su regla de costo.
 
@@ -43,5 +47,12 @@ public class Furgon extends Vehiculo {
     @Override
     public String obtenerTipo() {
            return "Furgon";
+    }
+
+    // Reutiliza el detalle común y le agrega lo propio del Furgon.
+    @Override
+    public String obtenerDetalle() {
+        return super.obtenerDetalle()
+                + " | Capacidad: " + capacidadCargaToneladas + " toneladas";
     }
 }

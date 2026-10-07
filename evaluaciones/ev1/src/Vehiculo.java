@@ -1,14 +1,17 @@
 
 
+// Parte 5:
+// cada subtipo la amplía partiendo de super.obtenerDetalle()
 
 // Parte 4: Se declara abstracto en Vehiculo.
 // se sobrescribe al final de cada subtipo.
 // Cada objeto informa su propio tipo: nadie tiene que averiguarlo desde afuera
 
+
 // Nota Parte 3: Sin cambios para vehiculo.
 
-//Parte 2
 
+//Parte 2
  //• Convierte Vehiculo en una clase abstract.
  // • Declara public abstract double calcularCostoServicio(); en la clase base.
  // • Crea Auto y Furgon heredando de Vehiculo.
@@ -158,6 +161,20 @@ public abstract class Vehiculo {
        // Nombre del tipo concreto. Lo responde cada subtipo, así nadie tiene que
        // averiguar desde afuera qué clase de vehículo tiene en la mano.
     public abstract String obtenerTipo();
+
+
+
+        // Parte 5:
+    //    Vehiculo arma la parte común (tipo, marca, año y kilometraje) y
+    //    cada subtipo la amplía partiendo de super.obtenerDetalle()
+
+     // Detalle con los datos comunes. Cada subtipo lo amplía con sus datos propios.
+    public String obtenerDetalle() {
+        return "Tipo: " + obtenerTipo()
+                + " | Marca: " + marca
+                + " | Año: " + anioFabricacion
+                + " | Kilometraje: " + String.format("%.0f", kilometraje);
+    }
 
 
 
